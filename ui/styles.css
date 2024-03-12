@@ -1,0 +1,67 @@
+/* Application Title */
+#app_title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Task List */
+.task_list {
+    margin-bottom: 20px;
+}
+
+/* Task Item */
+.task_item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+}
+
+/* Task Description */
+.task_description {
+    font-weight: bold;
+}
+
+/* Task Deadline */
+.task_deadline {
+    color: #777;
+}
+
+/* Task Priority */
+.task_priority {
+    color: red;
+    font-weight: bold;
+}
+
+/* Category List */
+.category_list {
+    margin-bottom: 20px;
+}
+
+/* Category Item */
+.category_item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+}
+
+/* Category Name */
+.category_name {
+    font-weight: bold;
+}
+
+/* Button */
+.button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Input Field */
+.input_field {
+    padding: 5px;
+    width: 200px;
+    margin-bottom: 10px;
+}
