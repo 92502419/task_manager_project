@@ -1,5 +1,4 @@
 from src.category import Category
-from tkinter import messagebox
 class TaskManager:
     def __init__(self):
         self.tasks = []
@@ -51,52 +50,6 @@ class TaskManager:
                 return category
         return None
     
-    def update_category(self, old_category_name, new_category_name): 
-        """
-        Met à jour le nom d'une catégorie dans TaskManager et l'arborescence des catégories.
-
-        Args:
-            old_category_name (str): Nom de la catégorie à mettre à jour.
-            new_category_name (str): Nouveau nom de la catégorie.
-        """
-
-        category = self.find_category(old_category_name)
-
-        # Si la catégorie est trouvée, mettre à jour son nom
-        if category:
-            category.name = new_category_name
-
-            # Mettre à jour l'arborescence des catégories
-            self.update_category_tree()
-
-        else:
-            # Afficher un message d'erreur si la catégorie n'est pas trouvée
-            messagebox.showerror("Erreur", f"Catégorie '{old_category_name}' non trouvée.")
-
-    def _update_subcategory_references(self, category, old_name, new_name):
-        """
-        Updates the category name reference in subcategories and their tasks (recursive).
-
-        Args:
-            category (Category): The category object.
-            old_name (str): Old name of the category.
-            new_name (str): New name of the category.
-        """
-
-        for subcategory in category.subcategories:
-            # Update subcategory name if it matches the old name
-            if subcategory.name == old_name:
-                subcategory.name = new_name
-
-            # Update tasks in the subcategory
-            for task in subcategory.tasks:
-                if task.category == old_name:
-                    task.category = new_name
-
-            # Update references in sub-subcategories (recursive call)
-            self._update_subcategory_references(subcategory, old_name, new_name)
-
-
     def get_root_category(self):
         """
         Renvoie la catégorie racine avec un nom spécifique (si elle existe) ou None.
@@ -106,3 +59,4 @@ class TaskManager:
             if category.name == nom_category_racine:
                 return category
         return None
+    

@@ -3,6 +3,7 @@ class Category:
         self.name = name
         self.tasks = []
         self.subcategories = []
+    
     def add_task(self, task):
         self.tasks.append(task)
 
