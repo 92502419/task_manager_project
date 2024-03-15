@@ -27,6 +27,13 @@ class TaskManagerApp:
         tk.Label(self.root, text="Deadline").grid(row=0, column=2, padx=10, pady=5)
         tk.Label(self.root, text="Priority").grid(row=0, column=4, padx=10, pady=5)
 
+        tk.Label(self.root, text="Category Name").grid(row=4, column=0, padx=10, pady=5)
+        
+        # Entry and Label widgets for adding/editing categories
+        self.category_name_entry = tk.Entry(self.root, width=30)
+        self.category_name_entry.grid(row=4, column=1, padx=10, pady=5)
+        
+        
         # Buttons
         tk.Button(self.root, text="Add Task", command=self.add_task).grid(row=1, column=0, padx=10, pady=5)
         tk.Button(self.root, text="Delete Task", command=self.delete_task).grid(row=1, column=1, padx=10, pady=5)
@@ -34,11 +41,19 @@ class TaskManagerApp:
         tk.Button(self.root, text="Add Category", command=self.add_category).grid(row=1, column=3, padx=10, pady=5)
         tk.Button(self.root, text="Delete Category", command=self.delete_category).grid(row=1, column=4, padx=10, pady=5)
 
+        
+        # Buttons for adding, updating, and deleting categories
+        tk.Button(self.root, text="Add Category", command=self.add_category).grid(row=4, column=2, padx=10, pady=5)
+        tk.Button(self.root, text="Update Category", command=self.update_category).grid(row=4, column=3, padx=10, pady=5)
+        tk.Button(self.root, text="Delete Category", command=self.delete_category).grid(row=4, column=4, padx=10, pady=5)
+        
         # Listbox
         self.tasks_listbox = tk.Listbox(self.root, width=50)
         self.tasks_listbox.grid(row=2, column=0, columnspan=6, padx=10, pady=5)
 
         self.update_tasks_listbox()
+        
+        self.update_category_tree()
         
         # Treeview for displaying categories and subcategories
         self.category_tree = ttk.Treeview(self.root)
@@ -48,6 +63,7 @@ class TaskManagerApp:
         
         self.update_tasks_listbox()
         self.update_category_tree()
+        
 
     def add_task(self):
         description = self.description_entry.get()
