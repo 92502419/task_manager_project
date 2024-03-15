@@ -49,4 +49,12 @@ class TaskManager:
             if category.name == category_name:
                 return category
         return None
-
+    def get_root_category(self):
+        """
+        Renvoie la catégorie racine avec un nom spécifique (si elle existe) ou None.
+        """
+        nom_category_racine = "Nom de votre catégorie racine"  # Remplacez par le nom réel
+        for category in self.categories:
+            if category.name == nom_category_racine:
+                return category
+        return None
