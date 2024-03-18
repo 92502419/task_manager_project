@@ -1,5 +1,5 @@
 class Category:
-    def __init__(self, name, parent=None):
+    def __init__(self, name):
         self.name = name  # Initialise le nom de la catégorie.
         #self.tasks = []  # Initialise une liste vide pour stocker les tâches de la catégorie.
         self.subcategories = []  # Initialise une liste vide pour stocker les sous-catégories de la catégorie.

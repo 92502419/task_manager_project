@@ -134,6 +134,11 @@ class TaskManagerApp:
         if root_category:
             self.category_tree.insert("", tk.END, text=root_category.name, values=[root_category.name])
             self._populate_subcategories(root_category)
+        else :
+            for cat in self.task_manager.categories:
+                self.category_tree.insert("", tk.END, text=cat.name, values=[cat.name])
+                self._populate_subcategories(cat)
+                
 
     def _populate_subcategories(self, category):
         # Fonction récursive pour ajouter les sous-catégories à l'arborescence.

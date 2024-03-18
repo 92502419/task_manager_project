@@ -34,9 +34,8 @@ class TaskManager:
             index = self.tasks.index(old_task)
             self.tasks[index] = new_task
 
-    def add_category(self, name, parent=None):
+    def add_category(self, category, parent=None):
         # Ajoute une nouvelle catégorie ou sous-catégorie.
-        category = Category(name)
         if parent:
             parent = self.find_category(parent)
             if parent:
