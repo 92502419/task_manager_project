@@ -8,7 +8,7 @@ class Task:
 
 
 
-    def secondes_avant_date_limite(self):
+    def secondes_avant_deadline(self):
         """
         Calcule le nombre de secondes qui restent avant l'arrivée de la date limite de la tâche.
 
@@ -17,10 +17,10 @@ class Task:
         """
 
         # Conversion de la date limite en datetime
-        date_limite_datetime = datetime.strptime(self.date_limite, "%Y-%m-%d")
+        deadline_datetime = datetime.strptime(self.deadline, "%Y-%m-%d")
 
         # Calcul du nombre de secondes restantes
-        secondes_restantes = (date_limite_datetime - datetime.today()).total_seconds()
+        secondes_restantes = (deadline_datetime - datetime.today()).total_seconds()
 
         # Retour du nombre de secondes
         return secondes_restantes

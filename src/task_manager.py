@@ -1,9 +1,15 @@
 from src.category import Category
+from collections import deque
+from src.task_queue import Filesecondes_avant_deadline
+from src.task_stack  import Pilepriority
+
 
 class TaskManager:
     def __init__(self):
         self.tasks = []  # Initialise une liste vide de tâches.
         self.categories = []  # Initialise une liste vide de catégories.
+        self.Filesecondes_avant_deadline = Filesecondes_avant_deadline()
+        self.Pilepriority = Pilepriority()
 
     def add_task(self, task, name=None):
         # Ajoute une tâche à la liste des tâches générales ou à une catégorie spécifique.
@@ -13,6 +19,8 @@ class TaskManager:
                 category.tasks.append(task)
         else:
             self.tasks.append(task)
+            self.Filesecondes_avant_deadline.ajouter(task)
+            self.Pilepriority.empiler(task)
 
     def remove_task(self, task, name=None):
         # Supprime une tâche de la liste des tâches générales ou d'une catégorie spécifique.
@@ -22,7 +30,8 @@ class TaskManager:
                 category.tasks.remove(task)
         else:
             self.tasks.remove(task)
-
+            self.Filesecondes_avant_deadline.retirer(task)
+            self.Pilepriority.depiler(task)
     def update_task(self, old_task, new_task, name=None):
         # Met à jour une tâche dans la liste des tâches générales ou d'une catégorie spécifique.
         if name:

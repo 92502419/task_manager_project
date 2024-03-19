@@ -1,4 +1,4 @@
-class PilePriorite:
+class Pilepriority:
     def __init__(self):
         self.elements = []
 
@@ -16,7 +16,7 @@ class PilePriorite:
         # Parcours de la pile
         for i, elt in enumerate(self.elements):
             # Si la priorité de la nouvelle tâche est supérieure à celle de l'élément actuel
-            if element.priorite > elt.priorite:
+            if element.priority > elt.priority:
                 # Insertion de la nouvelle tâche avant l'élément actuel
                 self.elements.insert(i, element)
                 return
