@@ -6,12 +6,16 @@ from tkinter import messagebox  # Importe messagebox pour afficher des boîtes d
 from src.task_manager import TaskManager  # Importe la classe TaskManager du module src.task_manager.
 from src.task import Task  # Importe la classe Task du module src.task.
 from src.category import Category  # Importe la classe Category du module src.category.
+from datetime import datetime
 
 class TaskManagerApp:
     def __init__(self, root):
         self.root = root  # Initialise la fenêtre principale de l'application.
         self.task_manager = TaskManager()  # Initialise un gestionnaire de tâches.
         self.current_category = None  # Initialise la catégorie actuellement sélectionnée.
+        self.sort_by = "priority"
+        self.sort_by = "deadline"
+        self.default_sort = "default"
         self.setup_ui()  # Configure l'interface utilisateur de l'application.
 
     def setup_ui(self):
@@ -47,6 +51,15 @@ class TaskManagerApp:
         self.category_tree.grid(row=3, column=0, columnspan=6, padx=10, pady=5)
         self.category_tree.bind("<<Treeview Select>>", self.on_category_select)
 
+        self.sort_by_priority = tk.Radiobutton(self.root, text="Sort by Priority", variable=self.sort_by, value="priority", command=self.sort_tasks)
+        self.sort_by_priority.grid(row=4, column=0, padx=10, pady=5)
+        self.sort_by_deadline = tk.Radiobutton(self.root, text="Sort by Due Date", variable=self.sort_by, value="deadline", command=self.sort_tasks)
+        self.sort_by_deadline.grid(row=4, column=1, padx=10, pady=5)
+        self.default_sort_none = tk.Radiobutton(self.root, text="No Sorting", variable=self.default_sort, value="default", command=self.sort_tasks)
+        self.default_sort_none.grid(row=4, column=2, padx=10, pady=5)
+
+        
+        
         self.update_tasks_listbox()
         self.update_category_tree()
 
@@ -87,6 +100,27 @@ class TaskManagerApp:
             else:
                 messagebox.showwarning("Warning", "Please fill in all fields.")
 
+    def sort_tasks(self):
+        """
+        Fonction pour trier les tâches en fonction de l'option sélectionnée.
+        """
+
+
+        if self.sort_by == "priority":
+            self.task_manager.tasks = sorted(self.task_manager.tasks, key=lambda task: task.priority)
+        elif self.sort_by == "deadline":
+            # Get the current date
+            current_date = datetime.today()
+
+            # Sort tasks by the difference between deadline and current date in seconds
+            self.task_manager.tasks = sorted(self.task_manager.tasks, key=lambda task: 
+                                            (datetime.strptime(task.deadline, "%Y-%m-%d") - current_date).total_seconds())
+        else:
+            # No sorting
+            pass
+        self.update_tasks_listbox()
+
+    
     def on_category_select(self, event):
         # Met à jour la liste des tâches en fonction de la catégorie sélectionnée.
         selected_item = self.category_tree.focus()
@@ -111,7 +145,8 @@ class TaskManagerApp:
         if not self.current_category:
             messagebox.showerror("Error", "No category selected")
             return
-        if messagebox.askyesno("Delete Category", f"Are you sure you want to delete the category '{self.current_category}'?"):
+        else :
+            messagebox.askyesno("Delete Category", f"Are you sure you want to delete the category '{self.current_category}'?")
             self.task_manager.remove_category(self.current_category)
             self.current_category = None
             self.update_category_tree()

@@ -30,8 +30,8 @@ class TaskManager:
                 category.tasks.remove(task)
         else:
             self.tasks.remove(task)
-            self.Filesecondes_avant_deadline.retirer(task)
-            self.Pilepriority.depiler(task)
+            
+            
     def update_task(self, old_task, new_task, name=None):
         # Met à jour une tâche dans la liste des tâches générales ou d'une catégorie spécifique.
         if name:
@@ -42,6 +42,7 @@ class TaskManager:
         else:
             index = self.tasks.index(old_task)
             self.tasks[index] = new_task
+            
 
     def add_category(self, category, parent=None):
         # Ajoute une nouvelle catégorie ou sous-catégorie.
@@ -57,6 +58,39 @@ class TaskManager:
         category = self.find_category(name)
         if category:
             self.categories.remove(category)
+            
+    def update_category(self, old_category, new_category):
+        """
+        Met à jour une catégorie existante.
+
+        Args:
+            old_category: La catégorie à modifier.
+            new_category: La nouvelle version de la catégorie.
+        """
+
+        if old_category not in self.categories:
+            raise ValueError(f"Catégorie '{old_category.name}' introuvable.")
+
+        # Mise à jour des attributs
+        old_category.name = new_category.name
+        old_category.description = new_category.description
+
+        # Mise à jour de la catégorie parente (si nécessaire)
+        if old_category.parent:
+            index = old_category.parent.subcategories.index(old_category)
+            old_category.parent.subcategories[index] = new_category
+
+        # Mise à jour des références aux catégories dans les tâches
+        for task in self.tasks:
+            if task.category == old_category:
+                task.category = new_category
+
+        # Mise à jour des références aux catégories dans les sous-catégories
+        for subcategory in self.categories:
+            if subcategory.parent == old_category:
+                subcategory.parent = new_category
+
+        
 
     def find_category(self, name):
         # Trouve une catégorie par son nom.
